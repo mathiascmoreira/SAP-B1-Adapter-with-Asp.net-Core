@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "x07ntPf1JL1K7cztUk1uLxHn9FNjM4X7KO5Tik3NHHFyU2i8rHYLpMnIZGGfZltFo+u0ucfi4cv2DxryJ3P5OQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mathias\\source\\repos\\ServiceLayer\\ServiceLayer\\ServiceLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mathias\\.nuget\\packages\\serialize.linq\\1.8.1\\serialize.linq.1.8.1.nupkg.sha512"
+  ],
+  "logs": []
+}
