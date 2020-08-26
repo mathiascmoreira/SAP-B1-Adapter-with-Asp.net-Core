@@ -8,6 +8,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]
@@ -96,7 +97,44 @@ namespace Tests
             result = entity.Where(c => c.StringProperty1.StartsWith("TESTE"));
             Assert.AreEqual("startswith(StringProperty1, 'TESTE')", result);
 
-           // result = entity.Where(c => c.StringProperty1.Length > 7); //TODO
+            result = entity.Where(c => !(c.StringProperty1 == "TESTE"));
+            Assert.AreEqual("not (StringProperty1 eq 'TESTE')", result);
+
+            result = entity.Where(c => !(c.StringProperty1.Equals("TESTE")));
+            Assert.AreEqual("not (StringProperty1 eq 'TESTE')", result);
+
+            result = entity.Where(c => !(c.StringProperty1 != "TESTE"));
+            Assert.AreEqual("not (StringProperty1 ne 'TESTE')", result);
+
+            result = entity.Where(c => !(c.StringProperty1.Contains("TESTE")));
+            Assert.AreEqual("not (contains(StringProperty1, 'TESTE'))", result);
+
+            result = entity.Where(c => !(c.StringProperty1.EndsWith("TESTE")));
+            Assert.AreEqual("not (endswith(StringProperty1, 'TESTE'))", result);
+
+            result = entity.Where(c => !(c.StringProperty1.StartsWith("TESTE")));
+            Assert.AreEqual("not (startswith(StringProperty1, 'TESTE'))", result);
+
+            // result = entity.Where(c => c.StringProperty1.Length > 7); //TODO
+        }
+
+        [Test]
+        public void TwoPropertyString()
+        {
+            var entity = new Entity<MockEntity>();
+            var result = string.Empty;
+
+            result = entity.Where(c => c.StringProperty1 == "TESTE" && c.StringProperty2 == "TESTE");
+            Assert.AreEqual("(StringProperty1 eq 'TESTE') and (StringProperty2 eq 'TESTE')", result);
+
+            result = entity.Where(c => c.StringProperty1 == "TESTE" || c.StringProperty2 == "TESTE");
+            Assert.AreEqual("StringProperty1 eq 'TESTE' or StringProperty2 eq 'TESTE'", result);
+
+            result = entity.Where(c => (c.StringProperty1 == "TESTE" || c.StringProperty1 == "TESTE2") && c.StringProperty2 == "TESTE2");
+            Assert.AreEqual("(StringProperty1 eq 'TESTE' or StringProperty1 eq 'TESTE2') and (StringProperty2 eq 'TESTE2')", result);
+
+            result = entity.Where(c => !(c.StringProperty1 == "TESTE" || c.StringProperty1 == "TESTE2") && c.StringProperty2 == "TESTE2");
+            Assert.AreEqual("(not (StringProperty1 eq 'TESTE' or StringProperty1 eq 'TESTE2')) and (StringProperty2 eq 'TESTE2')", result);
         }
     }
 }
