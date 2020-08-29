@@ -18,7 +18,11 @@ namespace ServiceLayer
 
             new Entity<Person>().Where(c => c.StringProperty1.StartsWith(null));
 
-          
+            
+
+
+
+
 
 
             CreateHostBuilder(args).Build().Run();

@@ -1,17 +1,60 @@
-﻿using Serialize.Linq.Extensions;
-using Serialize.Linq.Nodes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Serialize.Linq.Nodes;
+
 
 namespace ServiceLayer.ServiceLayer
 {
     public class EndPointAssembler
     {
+        private readonly List<ExpressionNode> _whereClauses;
+        private readonly List<ExpressionNode> _orderByClauses;
+        private readonly List<ExpressionNode> _orderByDescendingClauses;
+
+        private int? _top;
+
+        public EndPointAssembler()
+        {
+            _whereClauses = new List<ExpressionNode>();
+            _orderByClauses = new List<ExpressionNode>();
+            _orderByDescendingClauses = new List<ExpressionNode>();
+        }
+
+        internal void AddWhereClause<T>(Expression<Func<T, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void AddOrderByProperty<TSourse, TKey>(Expression<Func<TSourse, TKey>> keySelector)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void AddOrderByPropertyDescending<TSourse, TKey>(Expression<Func<TSourse, TKey>> keySelector)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetTop(int top)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetSkip(int skip)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetInlineCount()
+        {
+            throw new NotImplementedException();
+        }
+
         public string AssembleEndPoint<T>(List<Expression<Func<T, bool>>> whereClauses)
         {
-            return GetCommand(whereClauses.First().ToExpressionNode());
+          //  return GetCommand(whereClauses.First().ToExpressionNode());
         }
 
         private string GetCommand(ExpressionNode expressionNode)

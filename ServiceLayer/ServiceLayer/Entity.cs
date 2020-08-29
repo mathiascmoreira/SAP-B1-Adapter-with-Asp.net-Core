@@ -1,69 +1,79 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Serialize.Linq.Extensions;
-using Serialize.Linq.Nodes;
-using Serialize.Linq.Serializers;
 
 namespace ServiceLayer.ServiceLayer
 {
     public class Entity<T>
     {
-        private readonly List<Expression<Func<T, bool>>> _whereClauses;
         private readonly EndPointAssembler _endPointAssembler;
 
         public Entity() {
-            _whereClauses = new List<Expression<Func<T, bool>>>();
+           
             _endPointAssembler = new EndPointAssembler();
         }
 
-        public Entity<T> Where(Expression<Func<T, bool>> expression)
+        public Entity<T> Where(Expression<Func<T, bool>> predicate)
         {
-            _whereClauses.Add(expression);
+            _endPointAssembler.AddWhereClause(predicate);
 
-           // var result = GetCommand(expression.Body.ToExpressionNode());
+            return this;
+        }
+        
+        public Entity<T> OrderBy<TSourse, TKey>(Expression<Func<TSourse, TKey>> keySelector)
+        {
+            _endPointAssembler.AddOrderByProperty(keySelector);
 
             return this;
         }
 
-        public Entity<T> Select()
+        public Entity<T> OrderByDescending<TSourse, TKey>(Expression<Func<TSourse, TKey>> keySelector)
         {
+            _endPointAssembler.AddOrderByPropertyDescending(keySelector);
+
             return this;
         }
 
-        public Entity<T> Top()
+        public Entity<T> Top(int top)
         {
+            _endPointAssembler.SetTop(top);
+
             return this;
         }
 
-        public Entity<T> OrderBy()
+        public Entity<T> Skip(int skip)
         {
-            return this;
-        }
+            _endPointAssembler.SetSkip(skip);
 
-        public Entity<T> Skip()
-        {
             return this;
         }
 
         public Entity<T> InlineCount()
         {
+            _endPointAssembler.SetInlineCount();
+
             return this;
         }
 
-        public int Count()
+        public ServiceLayerResult<T> Count()
         {
-            return 0;
+            return null;
+        }
+
+        public ServiceLayerResult<T> ToList()
+        {
+            return null;
+        }
+
+        public ServiceLayerResult<T> Insert<T>(params T[] registers)
+        {
+            return null;
         }
 
         public string GetEndPoint()
         {
-            return _endPointAssembler.AssembleEndPoint(_whereClauses);
+            return null;
+          //  return _endPointAssembler.AssembleEndPoint();
         }
-
-
        
     }
 }

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.ServiceLayer
+namespace ServiceLayer.EndPointAssembler
 {
-    public class ServiceLayerResult<T>
+    public class EndPointOrderByAssembler
     {
-
     }
 }
